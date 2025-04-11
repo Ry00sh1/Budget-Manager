@@ -14,16 +14,23 @@ def load_states_json():
     return(estados)
 
 class Address(models.Model):
-    estados = load_states_json()
+    ESTADOS = load_states_json()
 
     street = models.CharField(max_length=50)
     number = models.IntegerField()
     neighborhood = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
-    state = models.CharField(max_length=50, choices=ESTADOS)
+    state = models.CharField(max_length=50)
 
 class Company(models.Model):
     company_name = models.CharField(max_length=50)
     cnpj = models.CharField(max_length=18, primary_key=True)
     phone_number = models.CharField(max_length=10)
+    address = models.OneToOneField(
+        Address, 
+        on_delete=models.CASCADE
+    )
     
+    
+    def __str__(self):
+        return super().company_name

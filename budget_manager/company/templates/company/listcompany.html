@@ -1,0 +1,5 @@
+{% for company in companies %}
+    <li>{{ company.company_name }} - {{ company.cnpj }} - {{ company.address.street }}</li>
+{% empty %}
+    <li>Não há empresas cadastradas.</li>
+{% endfor %}

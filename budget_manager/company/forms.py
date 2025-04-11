@@ -1,7 +1,12 @@
 from django import forms
-from .models import Budget
+from .models import Company, Address
 
-class BudgetForm(forms.ModelForm):
+class AddressForm(forms.ModelForm):
     class Meta:
-        model = Task
-        fields = ('title', 'description')
+        model = Address
+        fields = ('street','number','neighborhood','city','state')
+
+class CompanyForm(forms.ModelForm):
+    class Meta:
+        model = Company
+        fields = ('company_name','cnpj', 'phone_number')
