@@ -4,13 +4,20 @@ from company.models import Company
 class Vehicle(models.Model):
     brand: str = models.CharField(max_length=20)
     plate_number: str = models.CharField(max_length=20)
-    km: float = models.DecimalField()
+    km: float = models.DecimalField(decimal_places=2,max_digits=100000000)
 
 class Service(models.Model):
-    service_name: str = models.CharField(max_length=20)
-    value: float = models.DecimalField()
+    SERVICE_TYPES = {
+        "Corretivo": "corretivo",
+        "Preventivo": "preventivo",
+        "Preditivo": "preditivo"
+    }
 
-class Sale(models.Model):
+    service_description: str = models.CharField(max_length=100)
+    service_type: str = models.CharField(max_length=10, choices=SERVICE_TYPES)
+    value: float = models.DecimalField(decimal_places=2,max_digits=100000000)
+
+class ItemSale(models.Model):
     UNITS_OF_MEASUREMENT = {
         "UN": "Unidade",
         "LT": "Litros",
@@ -19,17 +26,21 @@ class Sale(models.Model):
 
     item_name: str = models.CharField(max_length=20)
     unit_of_measurement = models.CharField(max_length=2, choices=UNITS_OF_MEASUREMENT)
-    quantity = 0
-    
-    def define_quantity(self):
-        if self().unit_of_measurement == "UN":
-            quantity: int = models.IntegerField()
-        else:
-            quantity: float = models.DecimalField()
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
+    value: float = models.DecimalField(decimal_places=2,max_digits=100000000)
+
+    @property
+    def quantity_value(self):
+        if self.unit_of_measurement == "UN":
+            return int(self.quantity)
+        return float(self.quantity)
             
 
 class Budget(models.Model):
-    employer = models.ManyToOneField(Company, required=True)
-    employee = models.ManyToOneField(Company, required=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    vehicle = models.OneToOneField(Vehicle, on_delete=models.CASCADE)
     os_number: int = models.IntegerField()
-    total: float = models.DecimalField()
+    total: float = models.DecimalField(decimal_places=2,max_digits=100000000)
+
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    item_sale = models.ForeignKey(ItemSale, on_delete=models.CASCADE)

@@ -23,7 +23,7 @@ class Address(models.Model):
     state = models.CharField(max_length=50)
 
 class Company(models.Model):
-    company_name = models.CharField(max_length=50)
+    company_name = models.CharField(verbose_name="Razão social",max_length=50)
     cnpj = models.CharField(max_length=18, primary_key=True)
     phone_number = models.CharField(max_length=10)
     address = models.OneToOneField(
@@ -33,4 +33,4 @@ class Company(models.Model):
     
     
     def __str__(self):
-        return super().company_name
+        return self.company_name

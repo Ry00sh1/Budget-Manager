@@ -1,0 +1,16 @@
+<form method="post">
+    {% csrf_token %}
+  
+    <h2>Dados do Orçamento</h2>
+    {{ budget_form.as_p }}
+  
+    <h2>Serviços</h2>
+    {{ service_form.as_p }}
+
+    <h2>Venda</h2>
+    {{ item_sale_form.as_p }}
+  
+  
+    <button type="submit">Salvar</button>
+  </form>
+  
