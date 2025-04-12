@@ -4,7 +4,7 @@ from .models import Budget, ItemSale, Service
 class BudgetForm(forms.ModelForm):
     class Meta:
         model = Budget
-        fields = ['company', 'os_number']
+        fields = ['client', 'os_number']
 
 class ItemSaleForm(forms.ModelForm):
     class Meta:

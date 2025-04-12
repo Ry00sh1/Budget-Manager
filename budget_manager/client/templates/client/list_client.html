@@ -1,0 +1,7 @@
+{% for client in companies %}
+<li>
+  {{ client.client_name }} - {{ client.cnpj }} - {{ client.address.street }}
+</li>
+{% empty %}
+<li>Não há empresas cadastradas.</li>
+{% endfor %}

@@ -1,5 +1,5 @@
 from django.db import models
-from company.models import Company
+from client.models import Client
 
 class Vehicle(models.Model):
     brand: str = models.CharField(max_length=20)
@@ -37,7 +37,7 @@ class ItemSale(models.Model):
             
 
 class Budget(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     vehicle = models.OneToOneField(Vehicle, on_delete=models.CASCADE)
     os_number: int = models.IntegerField()
     total: float = models.DecimalField(decimal_places=2,max_digits=100000000)
