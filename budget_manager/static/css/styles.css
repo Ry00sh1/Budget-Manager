@@ -4,12 +4,6 @@
 }
 
 footer {
-  background: #640000;
-  background: linear-gradient(
-    33deg,
-    rgba(100, 0, 0, 1) 0%,
-    rgba(0, 0, 100, 1) 100%
-  );
   position: fixed;
   left: 0;
   bottom: 0;
@@ -22,5 +16,4 @@ footer a {
   font-size: large;
   color: white;
   text-decoration: none;
-  text-shadow: rgba(0, 255, 0, 1) 300 300 300;
 }

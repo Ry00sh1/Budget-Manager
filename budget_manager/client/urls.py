@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import newClient, listClient
 
+app_name = "client"
 urlpatterns = [
-    path("add-client/", newClient, name="add-client"),
-    path("list-client/", listClient, name="list-client"),
+    path("add/", newClient, name="add-client"),
+    path("list/", listClient, name="list-client"),
 ]

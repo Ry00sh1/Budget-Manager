@@ -22,5 +22,5 @@ urlpatterns = [
     path("",TemplateView.as_view(template_name='base.html')),
     path("admin/", admin.site.urls),
     path("budget/", include("budget.urls")),
-    path("client/", include("client.urls"))
+    path("client/", include("client.urls"), name="client"),  # Added name for client URL include
 ]

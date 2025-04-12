@@ -12,6 +12,7 @@ class Address(models.Model):
 class Client(models.Model):
     client_name = models.CharField(verbose_name="Razão social",max_length=50)
     cnpj = models.CharField(max_length=18, primary_key=True)
+    email = models.EmailField(max_length=50, unique=True, default="example@example.com")
     phone_number = models.CharField(max_length=10)
     address = models.OneToOneField(
         Address, 

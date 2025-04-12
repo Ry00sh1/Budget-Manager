@@ -10,7 +10,7 @@ def home(request):
 def newClient(request):
     if request.method == 'POST':
         address_form = AddressForm(request.POST)
-        client_form = clientForm(request.POST)
+        client_form = ClientForm(request.POST)
 
         if address_form.is_valid and client_form.is_valid():
             client_address = address_form.save()  # salva primeiro o endereço
@@ -20,7 +20,7 @@ def newClient(request):
             return redirect('/')
     else:
         address_form = AddressForm()
-        client_form = clientForm()
+        client_form = ClientForm()
     
     return render(request, 'client/add_client.html', {
         'address_form': address_form,
@@ -28,5 +28,5 @@ def newClient(request):
     })
 
 def listClient(request):
-    companies = client.objects.all()
-    return render(request, 'client/list_client.html', {'companies':companies})
+    clients = Client.objects.all()
+    return render(request, 'client/list_client.html', {'clients':clients})

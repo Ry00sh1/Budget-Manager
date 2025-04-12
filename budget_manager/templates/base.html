@@ -54,10 +54,14 @@
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#">Visualizar Clientes</a>
+                      <a class="dropdown-item" href="/client/list"
+                        >Visualizar Clientes</a
+                      >
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">Adicionar Cliente</a>
+                      <a class="dropdown-item" href="/client/add"
+                        >Adicionar Cliente</a
+                      >
                     </li>
                   </ul>
                 </li>
@@ -88,9 +92,9 @@
         </nav>
       </div>
 
-      {%block content%} {%endblock%}
+      <div class="row">{%block content%} {%endblock%}</div>
 
-      <footer>
+      <footer class="bg-primary">
         <a href="https://www.linkedin.com/in/pedro-h-a-sena/" class="footer-sig"
           >.sna ©</a
         >
