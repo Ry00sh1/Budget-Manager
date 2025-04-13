@@ -1,11 +1,32 @@
-<form method="post">
-  {% csrf_token %}
+{% extends "base.html" %} 
+{% block title %} <title>Adicionar Cliente</title> {% endblock %} 
+{% load static %}
+{% block content %}
 
-  <h2>Dados da Empresa</h2>
-  {{ client_form.as_p }}
-
-  <h2>Endereço</h2>
-  {{ address_form.as_p }}
-
-  <button type="submit">Salvar</button>
+<form method="get">
+  <label>Escolha o tipo:</label>
+  <select name="type" onchange="this.form.submit()">
+    <option value="">-- Selecione --</option>
+    <option value="individual" {% if escolha == 'individual' %}selected{% endif %}>Pessoa Física</option>
+    <option value="coorporate" {% if escolha == 'coorporate' %}selected{% endif %}>Pessoa Jurídica</option>
+  </select>
 </form>
+
+{% if client_form %}
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="type" value="{{ escolha }}">
+    {{ client_form.as_p }}
+    {{ address_form.as_p }}
+
+    <button type="submit">Enviar</button>
+  </form>
+{% endif %}
+
+
+<script src="{% static 'js/get_client_type.js' %}">
+</script>
+
+{% endblock %}
+
+

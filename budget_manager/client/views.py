@@ -1,30 +1,47 @@
 from django.shortcuts import render, redirect
-from django.http import request, HttpResponse
+from django.http import request, HttpResponse,JsonResponse
+from django.urls import reverse
 from django.views.generic import CreateView
 from .models import Client
-from .forms import ClientForm, AddressForm
+from .forms import AddressForm, IndividualClientForm,CorporateClientForm
+from django.template.loader import render_to_string
 
-def home(request):
-    HttpResponse(request,"Home")
 
 def newClient(request):
-    if request.method == 'POST':
-        address_form = AddressForm(request.POST)
-        client_form = ClientForm(request.POST)
+    form_choice = request.GET.get('type') or request.POST.get('type')  # lida com GET e POST
+    client_form = None
 
-        if address_form.is_valid and client_form.is_valid():
-            client_address = address_form.save()  # salva primeiro o endereço
-            client = client_form.save(commit=False)
-            client.address = client_address
-            client.save()
-            return redirect('/')
-    else:
-        address_form = AddressForm()
-        client_form = ClientForm()
+    if form_choice == 'individual':
+        if request.method == 'POST':
+            client_form = IndividualClientForm(request.POST)
+            address_form = AddressForm(request.POST)
+            if client_form.is_valid() and address_form.is_valid():
+                client = client_form.save(commit=False)
+                address = address_form.save()
+                client.address = address
+                client.save()
+                return redirect(reverse('client:list-client'))
+        else:
+            client_form = IndividualClientForm()
     
+    elif form_choice == 'coorporate':
+        if request.method == 'POST':
+            client_form = CorporateClientForm(request.POST)
+            address_form = AddressForm(request.POST)
+            if client_form.is_valid() and address_form.is_valid():
+                client = client_form.save(commit=False)
+                address = address_form.save()
+                client.address = address
+                client.save()
+                return redirect(reverse('client:list-client'))
+        else:
+            client_form = CorporateClientForm()
+    address_form = AddressForm()
+
     return render(request, 'client/add_client.html', {
-        'address_form': address_form,
         'client_form': client_form,
+        'address_form': address_form,
+        'form_choice': form_choice,
     })
 
 def listClient(request):
