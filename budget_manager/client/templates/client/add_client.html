@@ -1,27 +1,41 @@
 {% extends "base.html" %} 
 {% block title %} <title>Adicionar Cliente</title> {% endblock %} 
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 
-<form method="get">
-  <label>Escolha o tipo:</label>
-  <select name="type" onchange="this.form.submit()">
-    <option value="">-- Selecione --</option>
-    <option value="individual" {% if escolha == 'individual' %}selected{% endif %}>Pessoa Física</option>
-    <option value="coorporate" {% if escolha == 'coorporate' %}selected{% endif %}>Pessoa Jurídica</option>
-  </select>
-</form>
+<div class="container" style="width: 80vw;">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h1 class="text-white">Adicionar Cliente</h1>
+    </div>
+  </div>
+  <div class="row">
+      <form method="get" class="m-5">
+        <label>Escolha o tipo:</label>
+        <select name="type" onchange="this.form.submit()">
+          <option value="">-- Selecione --</option>
+          <option value="individual" {% if escolha == 'individual' %}selected{% endif %}>Pessoa Física</option>
+          <option value="coorporate" {% if escolha == 'coorporate' %}selected{% endif %}>Pessoa Jurídica</option>
+        </select>
+      </form>
+      {% if client_form %}
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="type" value="{{ escolha }}">
+        {% crispy client_form %}
+        {% crispy address_form %}
+    
+        <button type="submit">Enviar</button>
+      </form>
+      {% endif %}
+  </div>
+  
+  
 
-{% if client_form %}
-  <form method="post">
-    {% csrf_token %}
-    <input type="hidden" name="type" value="{{ escolha }}">
-    {{ client_form.as_p }}
-    {{ address_form.as_p }}
+  
 
-    <button type="submit">Enviar</button>
-  </form>
-{% endif %}
+</div>
 
 
 <script src="{% static 'js/get_client_type.js' %}">

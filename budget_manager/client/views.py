@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 
 
 def newClient(request):
-    form_choice = request.GET.get('type') or request.POST.get('type')  # lida com GET e POST
+    form_choice = request.GET.get('type') or request.POST.get('type')
     client_form = None
 
     if form_choice == 'individual':

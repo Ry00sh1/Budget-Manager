@@ -10,7 +10,7 @@ class Address(models.Model):
 class Client(models.Model):
     name = models.CharField(verbose_name="Nome",max_length=50)
     email = models.EmailField(max_length=50, unique=True)
-    phone_number = models.CharField(max_length=10)
+    phone_number = models.CharField(verbose_name="Número de Telefone",max_length=10)
     address = models.OneToOneField(
         Address, 
         on_delete=models.CASCADE
